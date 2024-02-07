@@ -84,7 +84,7 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // make a div and insert into correct table cell
   const currentCell = document.querySelector(`#c-${y}-${x}`);
   const piece = document.createElement("div");
   piece.classList.add("piece");
@@ -103,13 +103,16 @@ function checkForWin() {
    */
   function _win(cells) {
 
-    // Check four cells to see if they're all legal & all color of current
-    // player
+    // Iterates through cell values and checks if any are invald
+    // Returns false if so
+
     for(let i = 0; i < cells.length; i++) {
       if(cells[i][0] >= HEIGHT || cells[i][1] >= WIDTH) {
         return false;
       }
     }
+
+    // Check four cells to see if theyre all color of current player
 
     for (let i = 0; i < cells.length; i++) {
       const y = cells[i][0];
@@ -144,6 +147,14 @@ function checkForWin() {
   return false;
 }
 
+/** Checks if top row is full of non-null values
+ * Returns true if so, false otherwise
+ */
+
+function checkForTie() {
+  return board[0].every(cell => cell !== null);
+}
+
 /** endGame: announce game end */
 
 function endGame(msg) {
@@ -163,7 +174,7 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update global `board` variable with new piece
+  // add line to update global `board` variable with new piece
   placeInTable(y, x);
   board[y][x] = currPlayer;
 
@@ -173,18 +184,14 @@ function handleClick(evt) {
   }
 
   // check for tie: if top row is filled, board is filled
-  // TODO: check if all cells in board are filled; if so, call endGame
+  // check if all cells in board are filled; if so, call endGame
   if(checkForTie()) {
     endGame(`Game is a tie!`);
   }
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  // switch currPlayer 1 <-> 2
   currPlayer = (currPlayer === 1) ? 2 : 1;
-}
-
-function checkForTie() {
-  return board[0].every(cell => cell !== null);
 }
 
 /** Start game. */
