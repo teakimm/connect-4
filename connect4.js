@@ -105,8 +105,13 @@ function checkForWin() {
 
     // Check four cells to see if they're all legal & all color of current
     // player
+    for(let i = 0; i < cells.length; i++) {
+      if(cells[i][0] >= HEIGHT || cells[i][1] >= WIDTH) {
+        return false;
+      }
+    }
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < cells.length; i++) {
       const y = cells[i][0];
       const x = cells[i][1];
       if (currPlayer !== board[y][x]) return false;
@@ -120,7 +125,7 @@ function checkForWin() {
   // ways to win: horizontal, vertical, diagonalDR, diagonalDL
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: assign values to the below variables for each of the ways to win
+      // assign values to the below variables for each of the ways to win
       // horizontal has been assigned for you
       // each should be an array of 4 cell coordinates:
       // [ [y, x], [y, x], [y, x], [y, x] ]
@@ -160,6 +165,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update global `board` variable with new piece
   placeInTable(y, x);
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -168,9 +174,17 @@ function handleClick(evt) {
 
   // check for tie: if top row is filled, board is filled
   // TODO: check if all cells in board are filled; if so, call endGame
+  if(checkForTie()) {
+    endGame(`Game is a tie!`);
+  }
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer = (currPlayer === 1) ? 2 : 1;
+}
+
+function checkForTie() {
+  return board[0].every(cell => cell !== null);
 }
 
 /** Start game. */
