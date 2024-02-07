@@ -74,7 +74,7 @@ function makeHtmlBoard() {
  *    (return null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
+  // Start at lowest y value and see if null, if it is, return the y value
   for(let y = HEIGHT - 1; y >= 0; y--) {
     if(board[y][x] === null) return y;
   }
@@ -85,6 +85,11 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  const currentCell = document.querySelector(`#c-${y}-${x}`);
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
+  piece.classList.add(`p${currPlayer}`);
+  currentCell.append(piece);
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
