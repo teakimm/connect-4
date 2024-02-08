@@ -4,6 +4,7 @@
   width: 50px;
   height: 50px;
   border: solid 1px #666;
+  position: relative;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -14,6 +15,22 @@
   width: 80%;
   height: 80%;
   border-radius: 50%;
+  bottom: 0;
+  left: 0;
+  animation-name: dropIn;
+  animation-duration: 1.5s;
+}
+
+@keyframes dropIn {
+
+  from {
+    top: -400px;
+  }
+
+  to {
+    top: 0;
+  }
+
 }
 
 /* make pieces red/blue,  depending on player 1/2 piece */
