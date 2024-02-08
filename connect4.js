@@ -86,9 +86,12 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // make a div and insert into correct table cell
   const currentCell = document.querySelector(`#c-${y}-${x}`);
+
+  // create piece element and add classes to it
   const piece = document.createElement("div");
   piece.classList.add("piece");
   piece.classList.add(`p${currPlayer}`);
+
   currentCell.append(piece);
 }
 
@@ -103,20 +106,16 @@ function checkForWin() {
    */
   function _win(cells) {
 
-    // Iterates through cell values and checks if any are invald
-    // Returns false if so
-
-    for(let i = 0; i < cells.length; i++) {
-      if(cells[i][0] >= HEIGHT || cells[i][1] >= WIDTH) {
-        return false;
-      }
-    }
-
-    // Check four cells to see if theyre all color of current player
+    // Check four cells to see if they're all color of current player
 
     for (let i = 0; i < cells.length; i++) {
       const y = cells[i][0];
       const x = cells[i][1];
+
+      // checks if cell coordinates are invalid
+      if(y >= HEIGHT || x >= WIDTH) return false;
+
+      // checks if cell value is not equal to current player
       if (currPlayer !== board[y][x]) return false;
     }
 
